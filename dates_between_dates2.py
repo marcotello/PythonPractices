@@ -38,15 +38,19 @@ def nextDay(year, month, day):
 def are_dates_valid(year1, month1, day1, year2, month2, day2):
     if year1 > year2:
         return False
-    
-    if month1 > month2:
-        return False
-
-    if day1 > day2:
-        return False
-    
+    elif year1 == year2:
+        if month1 > month2:
+            return False
+        elif month1 == month2:
+            if day1 > day2:
+                return False
     return True
-        
+
+def isSameDate(year1, month1, day1, year2, month2, day2):
+    if year1 == year2 and month1 == month2 and day1 == day2:
+        return True
+    else:
+        return False
 
 def daysBetweenDates(year1, month1, day1, year2, month2, day2):
     """
@@ -61,15 +65,18 @@ def daysBetweenDates(year1, month1, day1, year2, month2, day2):
     
     if are_dates_valid(year1, month1, day1, year2, month2, day2):
         while are_dates_valid(year1, month1, day1, year2, month2, day2):
-            days += 1
-            year1, month1, day1 = nextDay(year1, month1, day1)
+            if isSameDate(year1, month1, day1, year2, month2, day2):
+                break
+            else:
+                days += 1
+                year1, month1, day1 = nextDay(year1, month1, day1)
     else:
         return "undefined"
-    
+
     return days
 
 
-############################# TEST
+# TESTS
 
 def test_IsLeapYear():
     # test leap year
@@ -85,12 +92,12 @@ def test_IsLeapYear():
     print("are_dates_valid() function passed")
 
 def test_are_dates_valid():
-    assert(are_dates_valid(2012, 2, 28, 2017, 1, 28) == False)
-
+    assert(are_dates_valid(2012, 2, 28, 2017, 1, 28) == True)
     assert(are_dates_valid(2014, 3, 30, 2014, 3, 29) == False)
-
     assert(are_dates_valid(2018, 5, 7, 2019, 6, 8) == True)
-    assert(are_dates_valid((2017, 12, 30, 2017, 12, 30)
+    assert(are_dates_valid(2017, 12, 30, 2017, 12, 30) == True)
+    assert(are_dates_valid(2017, 12, 30, 2018, 1,  1) == True)
+
 
     print("IsLeapYear() function passed")
 
@@ -100,7 +107,7 @@ def test_nextDay():
     
     assert(nextDay(2017, 12, 31) == (2018, 1, 1))
 
-    # assert(nextDay(2012, 2, 28) == (2012, 2, 29))
+    assert(nextDay(2012, 2, 28) == (2012, 2, 29))
 
     assert(nextDay(2014, 3, 31) == (2014, 4, 1))
 
@@ -123,6 +130,14 @@ def test_daysInMonth():
 
     print("daysInMonth() function passed")
 
+def test_isSameDate():
+    assert(isSameDate(2017, 12, 30, 2017, 12, 30) == True)
+    assert(isSameDate(2018, 1, 1, 2018, 1, 1) == True)
+    assert(isSameDate(2017, 12, 30, 2017, 12, 31) == False)
+    assert(isSameDate(2014, 5, 7, 2014, 5, 7) == True)
+    assert(isSameDate(2017, 11, 29, 2017, 12, 30) == False)
+    print("isSameDate() function passed")
+
 def testDaysBetweenDates():
     
     # test same day
@@ -132,8 +147,8 @@ def testDaysBetweenDates():
     assert(daysBetweenDates(2017, 12, 30, 
                               2017, 12, 31) == 1)
     # test new year
-    assert(daysBetweenDates(2017, 12, 30, 
-                              2018, 1,  1)  == 2)
+    assert(daysBetweenDates(2017, 12, 31, 
+                              2018, 1,  1)  == 1)
     # test full year difference
     assert(daysBetweenDates(2012, 6, 29,
                               2013, 6, 29)  == 365)
@@ -145,4 +160,5 @@ test_IsLeapYear()
 test_nextDay()
 test_are_dates_valid()
 test_daysInMonth()
+test_isSameDate()
 testDaysBetweenDates()
