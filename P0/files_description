@@ -1,0 +1,9 @@
+texts
+
+sending telephone number (string), receiving telephone number (string), timestamp of text message (string).
+
+----------------------
+
+calls
+
+calling telephone number (string), receiving telephone number (string), start timestamp of telephone call (string), duration of telephone call in seconds (string)
