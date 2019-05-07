@@ -13,21 +13,34 @@ with open('calls.csv', 'r') as f:
     calls = list(reader)
 
 def get_numbers_called_by_area_code(area_code, calls):
-  called_numbers = set()
-  index = 0
-  while index < len(calls):
-    if calls[index][0].startswith(area_code):
-      called_numbers.add(calls[index][1])
-    index += 1
+    called_numbers = set()
+    index = 0
+    while index < len(calls):
+        if calls[index][0].startswith(area_code):
+            called_numbers.add(calls[index][1])
+        index += 1
 
-  return list(called_numbers)
+    return list(called_numbers)
 
 def print_lex_ordered_numbers(numbers):
-  numbers.sort()
-  for number in numbers:
-    print(number)
+    numbers.sort()
+    for number in numbers:
+        print(number)
 
-########def get_percentage_from_fixed_lines(area_code, numbers)
+def get_numbers_called_by_area_code_to_area_code(area_code, area_code2, calls):
+    called_numbers = set()
+    index = 0
+    while index < len(calls):
+        if calls[index][0].startswith(area_code) and calls[index][1].startswith(area_code2):
+            called_numbers.add(calls[index][0])
+        index += 1
+    
+    return len(called_numbers)
+
+def get_percentage_from_fixed_lines(number_of_calls_from_Bangalore, number_of_calls_from_Bangalore_to_Bangalore):
+    return (number_of_calls_from_Bangalore_to_Bangalore * 100) / number_of_calls_from_Bangalore
+    
+
 
 # TEST FOR get_numbers_called_by_area_code
 # four numbers with one caller from Bangalore
@@ -52,14 +65,38 @@ calls_test_list4 = [["(080)47459867", "98440 65896"], ["90087 42537", "(080)3512
 calls_test_list5 = [["98440 65896", "(080)47459867"], ["90087 42537", "(080)35121497"], 
                     ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
 #assert(get_numbers_called_by_area_code("(080)", calls_test_list5) == [])
-#print("test for get_numbers_called_by_area_code passed")
+print("test for get_numbers_called_by_area_code passed")
 
 # TEST FOR print_lex_ordered_numbers
 # test with eigth numbers on the list
 order_test_list1 = ["(080)47459867", "98440 65896", "90087 42537", "(080)35121497", 
-                    "(044)30727085", "92414 22596", "97447 92655", "(022)39006198"]
+                    "(044)30727085", "92414get_numbers_called_by_area_code 22596", "97447 92655", "(022)39006198"]
 #print_lex_ordered_numbers(order_test_list1)
+print("test for print_lex_ordered_numbers passed")
 
+# TEST FOR get_numbers_called_by_area_code_to_area_code
+# test with eigth numbers on the list two callers from Bangalore and one receiver from Bancalore
+bangalore_calls_test_list1 = [["(080)47459867", "98440 65896"], ["90087 42537", "(0471)6537077"], 
+                    ["(044)30727085", "92414 22596"], ["(080)23802940", "(080)35121497"],
+                    ["78130 00821", "98453 94494"], ["98453 46196", "90352 50054"]]
+assert(get_numbers_called_by_area_code_to_area_code("(080)", "(080)", bangalore_calls_test_list1) == 1)
+# test with eigth numbers on the list one caller from Bangalore and two receivers from Bancalore
+bangalore_calls_test_list2 = [["98440 65896", "(080)47459867"], ["90087 42537", "(0471)6537077"], 
+                    ["(044)30727085", "92414 22596"], ["(080)23802940", "(080)35121497"],
+                    ["78130 00821", "98453 94494"], ["98453 46196", "90352 50054"]]
+assert(get_numbers_called_by_area_code_to_area_code("(080)", "(080)", bangalore_calls_test_list1) == 1)
+# four numbers with none caller from Bangalore
+bangalore_calls_test_list3 = [["98440 65896", "(080)47459867"], ["90087 42537", "(080)35121497"], 
+                    ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
+assert(get_numbers_called_by_area_code_to_area_code("(080)", "(080)", bangalore_calls_test_list3) == 0)
+print("test for get_numbers_called_by_area_code_to_area_code passed")
+
+# TEST FOR get_percentage_from_fixed_lines
+assert(get_percentage_from_fixed_lines(8, 4) == 50)
+assert(get_percentage_from_fixed_lines(10, 2) == 20)
+assert(get_percentage_from_fixed_lines(10, 3) == 30)
+assert(get_percentage_from_fixed_lines(10, 0) == 0)
+print("test for get_percentage_from_fixed_lines passed")
 
 """
 TASK 3:
@@ -94,8 +131,10 @@ The percentage should have 2 decimal digits
 """
 # Part A solution
 print("The numbers called by people in Bangalore have codes:")
-print_lex_ordered_numbers(get_numbers_called_by_area_code('(080)', calls))
+calls_from_Bangalore = get_numbers_called_by_area_code('(080)', calls)
+print_lex_ordered_numbers(calls_from_Bangalore)
 
 # Part B solution
-print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." 
-    .format(get_numbers_called_by_area_code('(080)', calls))
+print("{:.2f}% percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore."
+    .format(get_percentage_from_fixed_lines(len(calls_from_Bangalore), 
+        get_numbers_called_by_area_code_to_area_code('(080)', '(080)', calls))))
