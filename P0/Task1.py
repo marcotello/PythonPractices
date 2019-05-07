@@ -20,13 +20,13 @@ Print a message:
 """
 # I have chosen set as my data collection because for this case the order does't matter, Set holds unique hashable object like strings.
 
-thisset = set(texts, calls)
+phones_set = set(texts, calls)
 for line in texts:
-    thisset.add(line[0])
-    thisset.add(line[1])
+    phones_set.add(line[0])
+    phones_set.add(line[1])
 
 for line in calls:
-    thisset.add(line[0])
-    thisset.add(line[1])
+    phones_set.add(line[0])
+    phones_set.add(line[1])
 
-print(len(thisset))
+print(len(phones_set))

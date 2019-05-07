@@ -12,6 +12,55 @@ with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
 
+def get_numbers_called_by_area_code(area_code, calls):
+  called_numbers = set()
+  index = 0
+  while index < len(calls):
+    if calls[index][0].startswith(area_code):
+      called_numbers.add(calls[index][1])
+    index += 1
+
+  return list(called_numbers)
+
+def print_lex_ordered_numbers(numbers):
+  numbers.sort()
+  for number in numbers:
+    print(number)
+
+########def get_percentage_from_fixed_lines(area_code, numbers)
+
+# TEST FOR get_numbers_called_by_area_code
+# four numbers with one caller from Bangalore
+calls_test_list1 = [["(080)47459867", "98440 65896"], ["90087 42537", "(080)35121497"], 
+                    ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
+#assert(get_numbers_called_by_area_code("(080)", calls_test_list1) == ["98440 65896"])
+# four numbers with two callers from Bangalore
+calls_test_list2 = [["(080)47459867", "98440 65896"], ["90087 42537", "(080)35121497"], 
+                    ["(044)30727085", "92414 22596"], ["(080)23802940", "98445 71741"]]
+#assert(get_numbers_called_by_area_code("(080)", calls_test_list2) == ["98445 71741", "98440 65896"])
+# six numbers with three callers in Bangalore and two are duplicated
+calls_test_list3 = [["(080)47459867", "98440 65896"], ["90087 42537", "(080)35121497"], 
+                    ["(044)30727085", "92414 22596"], ["(080)23802940", "98445 71741"],
+                    ["78130 00821", "98453 94494"], ["(080)23802940", "90352 50054"]]
+#assert(get_numbers_called_by_area_code("(080)", calls_test_list3) == ["90352 50054", "98445 71741", "98440 65896"])
+# six numbers with three callers from Bangalore and two receivers are duplicated
+calls_test_list4 = [["(080)47459867", "98440 65896"], ["90087 42537", "(080)35121497"], 
+                    ["(044)30727085", "92414 22596"], ["(080)23802940", "98445 71741"],
+                    ["78130 00821", "98453 94494"], ["(080)67362492", "98440 65896"]]
+#assert(get_numbers_called_by_area_code("(080)", calls_test_list4) == ["98445 71741", "98440 65896"])
+# four numbers with none caller from Bangalore
+calls_test_list5 = [["98440 65896", "(080)47459867"], ["90087 42537", "(080)35121497"], 
+                    ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
+#assert(get_numbers_called_by_area_code("(080)", calls_test_list5) == [])
+#print("test for get_numbers_called_by_area_code passed")
+
+# TEST FOR print_lex_ordered_numbers
+# test with eigth numbers on the list
+order_test_list1 = ["(080)47459867", "98440 65896", "90087 42537", "(080)35121497", 
+                    "(044)30727085", "92414 22596", "97447 92655", "(022)39006198"]
+#print_lex_ordered_numbers(order_test_list1)
+
+
 """
 TASK 3:
 (080) is the area code for fixed line telephones in Bangalore.
@@ -43,3 +92,10 @@ Print the answer as a part of a message::
 to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
+# Part A solution
+print("The numbers called by people in Bangalore have codes:")
+print_lex_ordered_numbers(get_numbers_called_by_area_code('(080)', calls))
+
+# Part B solution
+print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." 
+    .format(get_numbers_called_by_area_code('(080)', calls))
