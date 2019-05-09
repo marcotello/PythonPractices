@@ -22,6 +22,13 @@ def get_numbers_called_by_area_code(area_code, calls):
 
     return list(called_numbers)
 
+def filter_area_codes(number):
+    if number.startswith('('):
+        return number[:number.find(')')+1]
+    elif number.find(' ') > 0:
+        if number.startswith('7') or number.startswith('8') or number.startswith('9'):
+            return number
+
 def print_lex_ordered_numbers(numbers):
     numbers.sort()
     for number in numbers:
