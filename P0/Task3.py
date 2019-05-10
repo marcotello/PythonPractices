@@ -17,7 +17,7 @@ def get_numbers_called_by_area_code(area_code, calls):
     index = 0
     while index < len(calls):
         if calls[index][0].startswith(area_code):
-            called_numbers.add(calls[index][1])
+            called_numbers.add(filter_area_codes(calls[index][1]))
         index += 1
 
     return list(called_numbers)
@@ -27,8 +27,8 @@ def filter_area_codes(number):
         return number[:number.find(')')+1]
     elif number.find(' ') > 0:
         if number.startswith('7') or number.startswith('8') or number.startswith('9'):
-            return number
-
+            return number[:4]
+            
 def print_lex_ordered_numbers(numbers):
     numbers.sort()
     for number in numbers:
@@ -72,21 +72,21 @@ calls_test_list4 = [["(080)47459867", "98440 65896"], ["90087 42537", "(080)3512
 calls_test_list5 = [["98440 65896", "(080)47459867"], ["90087 42537", "(080)35121497"], 
                     ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
 #assert(get_numbers_called_by_area_code("(080)", calls_test_list5) == [])
-print("test for get_numbers_called_by_area_code passed")
+#print("test for get_numbers_called_by_area_code passed")
 
 # TEST FOR print_lex_ordered_numbers
 # test with eigth numbers on the list
 order_test_list1 = ["(080)47459867", "98440 65896", "90087 42537", "(080)35121497", 
                     "(044)30727085", "92414get_numbers_called_by_area_code 22596", "97447 92655", "(022)39006198"]
 #print_lex_ordered_numbers(order_test_list1)
-print("test for print_lex_ordered_numbers passed")
+#print("test for print_lex_ordered_numbers passed")
 
 # TEST FOR get_numbers_called_by_area_code_to_area_code
 # test with eigth numbers on the list two callers from Bangalore and one receiver from Bancalore
 bangalore_calls_test_list1 = [["(080)47459867", "98440 65896"], ["90087 42537", "(0471)6537077"], 
                     ["(044)30727085", "92414 22596"], ["(080)23802940", "(080)35121497"],
                     ["78130 00821", "98453 94494"], ["98453 46196", "90352 50054"]]
-assert(get_numbers_called_by_area_code_to_area_code("(080)", "(080)", bangalore_calls_test_list1) == 1)
+#assert(get_numbers_called_by_area_code_to_area_code("(080)", "(080)", bangalore_calls_test_list1) == 1)
 # test with eigth numbers on the list one caller from Bangalore and two receivers from Bancalore
 bangalore_calls_test_list2 = [["98440 65896", "(080)47459867"], ["90087 42537", "(0471)6537077"], 
                     ["(044)30727085", "92414 22596"], ["(080)23802940", "(080)35121497"],
@@ -96,14 +96,23 @@ assert(get_numbers_called_by_area_code_to_area_code("(080)", "(080)", bangalore_
 bangalore_calls_test_list3 = [["98440 65896", "(080)47459867"], ["90087 42537", "(080)35121497"], 
                     ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
 assert(get_numbers_called_by_area_code_to_area_code("(080)", "(080)", bangalore_calls_test_list3) == 0)
-print("test for get_numbers_called_by_area_code_to_area_code passed")
+#print("test for get_numbers_called_by_area_code_to_area_code passed")
+
+# TEST FOR filter_area_codes
+# test with a fixed number
+assert(filter_area_codes("(044)30727085") == "(044)")
+# test with a celphone
+assert(filter_area_codes("98440 65896") == "9844")
+# test with a telemarketing number
+assert(filter_area_codes("1409994233") == None)
+print("test for filter_area_codes passed")
 
 # TEST FOR get_percentage_from_fixed_lines
 assert(get_percentage_from_fixed_lines(8, 4) == 50)
 assert(get_percentage_from_fixed_lines(10, 2) == 20)
 assert(get_percentage_from_fixed_lines(10, 3) == 30)
 assert(get_percentage_from_fixed_lines(10, 0) == 0)
-print("test for get_percentage_from_fixed_lines passed")
+#print("test for get_percentage_from_fixed_lines passed")
 
 """
 TASK 3:
