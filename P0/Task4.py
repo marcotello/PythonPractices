@@ -50,10 +50,17 @@ def get_numbers_without_messages(calls, texts):
 
     return set(calls_list)
 
+def print_lex_ordered_numbers(telemarketers):
+    numbers = list(telemarketers)
+    numbers.sort()
+    for number in numbers:
+        print(number)
 
-def convert_to_set(list):
-    return set([item[0] for item in list])
+def print_list_of_telemarketers(calls, texts):
 
+    calls = get_numbers_without_incoming_calls(calls)
+    telemarketers = get_numbers_without_messages(calls, texts)
+    print_lex_ordered_numbers(telemarketers)
 
 
 # TEST FOR get_numbers_without_incoming_calls
@@ -61,16 +68,21 @@ def convert_to_set(list):
 calls_test_list1 = [["1408371942", "98440 65896"], ["90087 42537", "(044)30727085"], 
                     ["(044)30727085", "92414 22596"], ["1408371942", "90087 42537"]]
 assert(get_numbers_without_incoming_calls(calls_test_list1) == {"1408371942"})
-print("test for get_numbers_without_incoming_calls passed")
+#print("test for get_numbers_without_incoming_calls passed")
 
 # TEST FOR get_numbers_without_messages
 # one number at the end
-calls_test_list2 = [["1408371942", "98440 65896"], ["90087 42537", "(044)30727085"], 
-                    ["(044)30727085", "92414 22596"], ["1408371942", "90087 42537"]]
+calls_test_list2 = ["1408371942"]
 text_test_list2 = [["87146 31956", "98440 65896"], ["90087 42537", "(044)30727085"], 
-                    ["93435 21961", "92414 22596"], ["1408371942", "90087 42537"]]
-assert(get_numbers_without_incoming_calls(calls_test_list1) == {"1408371942"})
-print("test for get_numbers_without_incoming_calls passed")
+                    ["93435 21961", "92414 22596"], ["1408371944", "90087 42537"]]
+assert(get_numbers_without_messages(calls_test_list2, text_test_list2) == {"1408371942"})
+# two numbers at the end
+calls_test_list3 = ["1408371942", "1408409918"]
+text_test_list3 = [["87146 31956", "98440 65896"], ["90087 42537", "(044)30727085"], 
+                    ["93435 21961", "92414 22596"], ["1408371944", "90087 42537"]]
+assert(get_numbers_without_messages(calls_test_list3, text_test_list3) == {"1408371942", "1408409918"})
+#print("test for get_numbers_without_messages passed")
+
 
 """
 TASK 4:
@@ -84,6 +96,5 @@ Print a message:
 <list of numbers>
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
-
-print(str(len(calls)))
-print(str(len(convert_to_set(calls))))
+print("These numbers could be telemarketers: ")
+print_list_of_telemarketers(calls, texts)

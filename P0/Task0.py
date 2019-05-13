@@ -20,9 +20,11 @@ Print messages:
 "Last record of calls, <incoming number> calls <answering number> at time <time>, lasting <during> seconds"
 """
 # printing first record of texts
-# Getting the data from the frist record in the texts list by fixed position.
+# Getting the data from the frist record in the texts list by fixed position. 
+# This code has O(1) 
 print("First record of texts, {} texts {} at time {}".format(texts[0][0], texts[0][1], texts[0][2]))
 
 # printing last record of calls
 # Getting the data from the frist record in the calls list by accesisng the last item in the list (the pythonic way).
+# This code has O(1)
 print("Last record of calls, {} calls {} at time {}, lasting {} seconds".format(calls[-1][0], calls[-1][1], calls[-1][2], calls[-1][3]))
