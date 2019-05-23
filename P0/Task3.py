@@ -63,6 +63,7 @@ def get_unique_numbers_called_by_area_code(area_code, calls):
     index = 0
 
     # iterating over the list of calls  - O(n)
+    # this has a complexity of O(n), because it is iterating over the whole list.
     while index < len(calls):
         # compare if the caller number starts with the area code  - O(1)
         if calls[index][0].startswith(area_code):
@@ -92,6 +93,7 @@ def get_number_of_calls_from_area_code(area_code, calls):
     number_of_calls = 0
 
     # iterating over the list of calls  - O(n)
+    # this has a complexity of O(n), because it is iterating over the whole list.
     while index < len(calls):
         # compare if the caller number starts with the area code  - O(1)
         if calls[index][0].startswith(area_code):
@@ -106,7 +108,7 @@ def get_number_of_calls_from_area_code(area_code, calls):
 
 def filter_area_codes(number):
     """
-    This function returns the area core of a given phone number
+    This function returns the area core of a given phone number.
 
     INPUT:
     number: a phone number. 
@@ -137,7 +139,8 @@ def print_lex_ordered_numbers(numbers):
 
     RETURN: None, this function doesn't return anything.
     """
-    # sorting the list in lexicographic order  - O(n)
+    # sorting the list in lexicographic order  - O(nlogn)
+    # this has a complexity of O(nlogn), because it is iterating over the whole list.
     numbers.sort()
     # iterating the list to print the ordered numbers  - O(1)
     for number in numbers:
@@ -187,7 +190,7 @@ def get_percentage_from_fixed_lines(number_of_calls_from_Bangalore, number_of_ca
 
 def main():
     # Part A solution
-    # defining the area code from Bangalore
+    # defining the area code from Bangalore.  - O(1)
     area_code = "(080)"
 
     # printing the solution message.  - O(1)
@@ -196,9 +199,10 @@ def main():
     # getting all of the area codes and mobile prefixes called by people in Bangalore.  - O(n)
     unique_numbers_from_Bangalore = get_unique_numbers_called_by_area_code(area_code, calls)
     
-    # ordering and printing the list of calls from Bangalore.  - O(1)
+    # ordering and printing the list of calls from Bangalore.  - O(nlogn)
     print_lex_ordered_numbers(unique_numbers_from_Bangalore)
 
+    
     # Part B solution
     # getting the numbers of calls from bangalore  - O(n)
     number_of_calls_from_bangalore = get_number_of_calls_from_area_code(area_code, calls)

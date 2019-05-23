@@ -113,7 +113,7 @@ def print_lex_ordered_numbers(telemarketers):
 
     RETURN: None, this function doesn't return anything.
     """
-    # sorting the list - O(n)
+    # sorting the list - O(nlogn) 
     telemarketers.sort()
     # iterating the list to print the numbers - O(n)
     for number in telemarketers:
@@ -121,13 +121,13 @@ def print_lex_ordered_numbers(telemarketers):
         print(number)
 
 def main():
-    # getting the set of calls without numbers that receive a call - O(nx2)
+    # getting a list of calls without numbers that receive a call - O(n^2)
     set_calls = get_numbers_without_incoming_calls(calls)
-    # getting numbers that have never send or receive a text  - O(nx2)
+    # getting numbers that have never send or receive a text  - O(n^2)
     telemarketers = get_numbers_without_messages(set_calls, texts)
     # printing the message of the solution.  - O(1)
     print("These numbers could be telemarketers: ")
-    # printing those numbers.  - O(n)
+    # printing those numbers.  - O(nlogn) 
     print_lex_ordered_numbers(telemarketers)
 
 if __name__ == "__main__":

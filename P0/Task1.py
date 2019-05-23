@@ -29,10 +29,15 @@ def get_unique_numbers(numbers, numbers_set):
     RETURN: a set with unique numbers.
     """
     
+    # iterating the list to get the numbers - O(n)
+    # this has a complexity of O(n), because it is iterating over the whole list.
     for number in numbers:
+        # getting the fist element of each record and storing it on the Set  - O(1)
         numbers_set.add(number[0])
+        # getting the second element of each record and storing it on the Set  - O(1)
         numbers_set.add(number[1])    
     
+    # returning the set of unique numbers  - O(1)
     return numbers_set
 
 

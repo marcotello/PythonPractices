@@ -1,0 +1,100 @@
+Task 0
+
+The worst case approximation for Task 0 is O(2). It's pretty straight forward the program is 
+only printing the elements of the first record of each list. 
+
+Complexity = O(8)
+
+Also, you can find a detailed explanation of what the script is doing on the code.
+
+-------------------------------------------------------------------
+Task 1
+
+For completing this task, I'm making the following steps:
+1.- I'm creating a set for holding unique elements. 
+2.- Then, I'm iterating the list of calls, adding the numbers to the set on each iteration.
+3.- Then, I'm iterating the list of texts, adding the numbers to the set on each iteration.
+4.- At the end, I'm printing the length of the set.
+
+The worst case approximation is: O(1) + O(n) + O(n) + O(3) 
+A simplification is: O(2n+2)
+Which at the end is O(n)
+
+Complexity = O(n)
+
+Also, you can find a detailed explanation of what the script is doing on the code.
+-------------------------------------------------------------------
+Task 2
+
+For completing this task, I'm making the following steps:
+1.- I'm iterating the list of calls, comparing the time of the call on each iteration. Then 
+I'm returning the record with the longest time.
+2.- The, I'm splitting the string getting the day, the month and the year of the record.
+3.- I'm formatting the string to print the requested message. Also, I'm separating the year 
+from the time, and printing just the year.
+
+For this task, the worst case approximation is: O(n) + O(1) + O(6) 
+A simplification is: O(n+7)
+Which at the end is O(n)
+
+Complexity = O(n)
+
+Also, you can find a detailed explanation of what the script is doing on the code.
+-------------------------------------------------------------------
+Task 3
+
+Part A
+For completing this part A of the task, I'm making the following steps:
+1.- I'm defining the Bangalore's area code for future filtering.
+2.- Then, I'm getting a list of unique area codes, filtered by the Bangalore's area code on 
+the caller's record.
+3.- After that, I'm ordering the list in lexicographic order. Then, I'm iterating the list 
+and printing the number of each record.
+
+For this part of the task, the worst case approximation is: O(1) + O(1) + O(n)  + O(nlogn)
+A simplification is: O(3 + n + nlogn) 
+Which at the end is O(nlogn) 
+
+Complexity = O(n)
+
+
+Part B
+For completing this part B of the task, I'm making the following steps:
+1.- I'm getting the number of calls from Bangalore, by iterating the list of calls and counting 
+which calls starts with the Bangalore's area code.
+2.- Then, I'm getting the number of calls from fixed lines in Bangalore to other fixed lines 
+in Bangalore. I'm counting by iterating the list and comparing which caller from Bangalore is 
+calling a number from Bangalore.
+3.- After that, I'm calculating the percentage of fixed lines in Bangalore that are calling 
+other fixed lines in Bangalore, against the whole calls from Bangalore.
+4.- At the end, I'm just printing the requested message.
+
+For part B, the worst case approximation is: O(n) + O(n) + O(1) 
+A simplification is: O(2n + 1)
+Which at the end is O(n)
+
+Complexity = O(n)
+
+Also, you can find a detailed explanation of what the script is doing on the code.
+-------------------------------------------------------------------
+Task 4
+
+Part A
+For completing this part A of the task, I'm making the following steps:
+1.- I'm obtaining a list of numbers that haven't receive a call. I'm doing it by creating a set of 
+unique numbers. Then I'm iterating the list of calls and for each element iterating the list of 
+call again to check if the number hasn't received a call.
+2.- I'm getting a list of numbers that never sent or received texts. I'm doing it by iterating 
+the list on the previous step, and for each element, I'm iterating the list of texts to check if 
+the number is in the texts list. If it's there, I'm deleting the number.
+3.- Then I'm printing the requested message.
+4.- At the end, I'm sorting the list in lexicographic order and iterating the list fo numbers and 
+printing each element.
+
+The worst case approximation is: O(n^2) + O(n^2) + O(1) + O(nlogn)  
+A simplification is: O(2n^2 + 1 + nlogn) 
+Which at the end is O(n^2 + nlogn)
+
+Complexity = O(n^2 + nlogn)
+
+Also, you can find a detailed explanation of what the script is doing on the code.

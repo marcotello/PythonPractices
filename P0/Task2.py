@@ -31,20 +31,21 @@ def get_longest_call(calls, duration=0):
     RETURN: the call that has the longest duration.
     """
 
-    # creating an empty list that will hold the longest call.
+    # creating an empty list that will hold the longest call.  - O(1)
     call_data = list()
 
-    # iterating over the list of calls
+    # iterating over the list of calls.  - O(n)
+    # this has a complexity of O(n), because it is iterating over the whole list.
     for call in calls:
 
-        # True, in case the duration of the call is longer than the previous value.
+        # True, in case the duration of the call is longer than the previous value.  - O(1)
         if int(call[3]) > duration:
-            # storing the call if it has a longer duration.
+            # storing the call if it has a longer duration.  - O(1)
             call_data = call
-            # updating the duration
+            # updating the duration.  - O(1)
             duration = int(call[3])
 
-    # returning the longest call.
+    # returning the longest call.  - O(1)
     return call_data
 
 def get_month_name(month):
