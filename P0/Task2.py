@@ -20,89 +20,106 @@ Print a message:
 September 2016.".
 """
 
-def get_longest_call(calls, duration=0):
+def get_unique_numbers_with_total_call_time(calls):
     """
-    This function returns the call with the longest duration by comparing all elements on a list.
+    This function iterates over the list of calls and returns a dictionary with the number and it's total time on phone.
 
     INPUT:
     calls: a list of calls. 
-    duration: the duration where we want to start comparing. 0 by default.
 
-    RETURN: the call that has the longest duration.
+    RETURN: A dictionary with the phone numbers and the total duration on calling and receiveng calls.
     """
 
-    # creating an empty list that will hold the longest call.  - O(1)
-    call_data = list()
+    # Creating an empty dictionary that will hold the information of every number and the time that 
+    # have spent making calls and receiving calls.   - O(1)
+    calls_data = dict()
 
     # iterating over the list of calls.  - O(n)
     # this has a complexity of O(n), because it is iterating over the whole list.
     for call in calls:
+        if call[0] in calls_data:
+            calls_data[call[0]] = calls_data[call[0]] + int(call[3])
+        else:
+            calls_data[call[0]] = int(call[3])
 
-        # True, in case the duration of the call is longer than the previous value.  - O(1)
-        if int(call[3]) > duration:
-            # storing the call if it has a longer duration.  - O(1)
-            call_data = call
-            # updating the duration.  - O(1)
-            duration = int(call[3])
+        if call[1] in calls_data:
+            if call[1] != call[0]:
+                calls_data[call[1]] = calls_data[call[1]] + int(call[3])
+            else:
+                continue
+        else:
+            calls_data[call[1]] = int(call[3])
+       
+    return calls_data
 
-    # returning the longest call.  - O(1)
-    return call_data
-
-def get_month_name(month):
+def get_number_with_highest_time(calls_dictionary):
     """
-    This function returns the month name given the number.
-
+    This function returns the number with the longest duration by comparing all elements on a dictionary.
     INPUT:
-    month: the number of the month.
-
-    RETURN: the name of the month.
+    calls_dictionary: a dictionary of numbers and call time. 
+    
+    RETURN: a tuple with the number that has the longest duration, and the call time.
     """
+    # the duration where we want to start comparing, in this 0.  - O(1)
+    duration = 0
+    # creating a variable to hold the number with the highest time.  - O(1)
+    max_time_number = ""
 
-    # creating a month dictionary
-    months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May',
-              '06': 'June', '07': 'July', '08': 'August', '09': 'September', '10': 'October', 
-              '11': 'November', '12': 'December'}
+    # iterating over the dictionary of numbers.  - O(n)
+    # this has a complexity of O(n), because it is iterating over the whole dictionary.
+    for call in calls_dictionary:
+        # True, in case the duration of the call is higher than the previous value.  - O(1)
+        if int(calls_dictionary[call]) > duration:
+            # storing the number if it has a longer duration.  - O(1)
+            max_time_number = call
+            # updating the duration.  - O(1)
+            duration = calls_dictionary[call]
 
-    # returning the month name by it's key.
-    return months[month]
+    # returning the number with the highest call time.  - O(1)
+    return (max_time_number, duration)
 
 
 def main():
-    # getting the longest call by iterating over the list and finding the longest duration - O(n)
-    call = get_longest_call(calls)
+    
+    # creating a dictionary of unique numbers and adding the total time that they have spend on the phone  - O(n)
+    calls_dict = get_unique_numbers_with_total_call_time(calls)
 
-    # splitting the date-time string - O(1)
-    day, month, year = call[2].split('-')
+    # getting the number with the highest call time by iterating over the list and finding the longest duration  - O(n)
+    highest_time_number = get_number_with_highest_time(calls_dict)
 
-    # printing the output - O(6)
-    print("{} spent the longest time, {} seconds, on the phone during {} {}.".format(call[0], call[3], get_month_name(month), year[:year.find(' ')]))
+    # printing the output  - O(3)
+    print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(highest_time_number[0], highest_time_number[1]))
 
 
 if __name__ == "__main__":
     main()
 
 
-"""
-# UNIT TESTING
+'''
+# UNIT TESTING 
 # get_longest_call test
-# two calls with different duration time
-calls_test_list1 = [["(0821)6141380", "90366 69257", "01-09-2016 06:54:44", "2147"], ["(022)47410783", "93412 26084", "01-09-2016 07:50:38", "96"]]
-assert(get_longest_call(calls_test_list1) == ["(0821)6141380", "90366 69257", "01-09-2016 06:54:44", "2147"])
-# two calls with the same duration
-calls_test_list2= [["(0821)6141380", "90366 69257", "01-09-2016 06:54:44", "2147"], ["(080)47459867", "98440 65896", "01-09-2016 08:08:59", "2147"]]
-assert(get_longest_call(calls_test_list2) == ["(0821)6141380", "90366 69257", "01-09-2016 06:54:44", "2147"])
-# four calls with different duration time
-calls_test_list3 = [["(0821)6141380", "90366 69257", "01-09-2016 06:54:44", "2147"], ["(022)47410783", "93412 26084", "01-09-2016 07:50:38", "96"],
-                    ["92423 51078", "78134 03625", "04-09-2016 09:31:44", "7036"], ["99003 88572", "(080)46304537", "01-09-2016 16:17:01", "3348"]]
-assert(get_longest_call(calls_test_list3) == ["92423 51078", "78134 03625", "04-09-2016 09:31:44", "7036"])
+# test list of records
+calls_test_list1 = [["97424 22395", "98453 94494", "01-09-2016 06:01:12", "186"], 
+                    ["78298 91466", "(022)28952819", "01-09-2016 06:01:59", "2093"], 
+                    ["97424 22395", "78298 91466", "01-09-2016 06:03:51", "1975"], 
+                    ["93427 40118", "(022)28952819", "01-09-2016 06:11:23", "1156"]]
+calls_dict = get_unique_numbers_with_total_call_time(calls_test_list1)
+# testing the length
+assert(len(calls_dict) == 5)
+# testing the total time of 97424 22395 number
+assert(calls_dict["97424 22395"] == 2161)
+# testing the total time of (022)28952819 number
+assert(calls_dict["(022)28952819"] == 3249)
+print("test for get_unique_numbers_with_total_call_time passed")
 
-# get_month_name test
-# should return January
-assert(get_month_name('01') == "January")
-# should return February
-assert(get_month_name('02') == "February")
-# should return December
-assert(get_month_name('12') == "December")
-# should return May
-assert(get_month_name('05') == "May")
-"""
+# get_number_with_highest_time test
+# test dictionary
+calls_test_dict = {"97424 22395": 2161, 
+                    "98453 94494": 186,
+                    "78298 91466": 4068,
+                    "(022)28952819": 3249,
+                    "93427 40118": 1156 }
+highest_time_number = get_number_with_highest_time(calls_test_dict)
+assert(highest_time_number == ("78298 91466", 4068))
+print("test for get_number_with_highest_time passed")
+'''
