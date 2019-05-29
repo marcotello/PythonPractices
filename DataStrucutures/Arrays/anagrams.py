@@ -16,16 +16,19 @@ def compare_dictionaries(dict1, dict2):
 
     result = True
 
-    for element in dict1:
-        if element in dict2:
-            if dict1[element] == dict2[element]:
-                result = True
+    if len(dict1) == len(dict2):
+        for element in dict1:
+            if element in dict2:
+                if dict1[element] == dict2[element]:
+                    result = True
+                else:
+                    result = False
+                    break
             else:
                 result = False
                 break
-        else:
-            result = False
-            break
+    else:
+        result = False
     
     return result
 
@@ -41,7 +44,6 @@ def anagram_checker(str1, str2):
     """
     
     # TODO: Write your solution here
-
     str1_dict = count_characters(str1)
     str2_dict = count_characters(str2)
 
@@ -83,4 +85,7 @@ assert(compare_dictionaries(test_dict1, test_dict2) == True)
 
 # testing the different dictionaries
 assert(compare_dictionaries(test_dict1, test_dict3) == False)
+
+# testing the different dictionaries
+assert(compare_dictionaries(test_dict3, test_dict2) == False)
 print("test for compare_dictionaries passed")
