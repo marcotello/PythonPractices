@@ -24,20 +24,22 @@ Complexity = O(n)
 
 Also, you can find a detailed explanation of what the script is doing on the code.
 -------------------------------------------------------------------
+
 Task 2
 
 For completing this task, I'm making the following steps:
-1.- I'm iterating the list of calls, comparing the time of the call on each iteration. Then 
-I'm returning the record with the longest time.
-2.- The, I'm splitting the string getting the day, the month and the year of the record.
-3.- I'm formatting the string to print the requested message. Also, I'm separating the year 
-from the time, and printing just the year.
+1.- In the get_unique_numbers_with_total_call_time function I'm creating an empty dictionary. 
+Then I'm iterating over the list of calls, and populating the dictionary with the unique numbers 
+as the key and the call time on the value on each iteration.  
+2.- Then, on the get_number_with_highest_time function, I'm iterating over the dictionary, 
+to get the highest call time.
+3.- Then I'm printing the requested message.
 
-For this task, the worst case approximation is: O(n) + O(1) + O(6) 
-A simplification is: O(n+7)
-Which at the end is O(n)
+For this task, the worst case approximation is: O(2n^2) + O(n) + O(3) 
+A simplification is: O(2n^2+n+1)
+Which at the end is O(n^2)
 
-Complexity = O(n)
+Complexity = O(n^2)
 
 Also, you can find a detailed explanation of what the script is doing on the code.
 -------------------------------------------------------------------
@@ -55,7 +57,7 @@ For this part of the task, the worst case approximation is: O(1) + O(1) + O(n)  
 A simplification is: O(3 + n + nlogn) 
 Which at the end is O(nlogn) 
 
-Complexity = O(n)
+Complexity = O(nlogn)
 
 
 Part B
@@ -79,8 +81,7 @@ Also, you can find a detailed explanation of what the script is doing on the cod
 -------------------------------------------------------------------
 Task 4
 
-Part A
-For completing this part A of the task, I'm making the following steps:
+For completing this task, I'm making the following steps:
 1.- I'm obtaining a list of numbers that haven't receive a call. I'm doing it by creating a set of 
 unique numbers. Then I'm iterating the list of calls and for each element iterating the list of 
 call again to check if the number hasn't received a call.
@@ -93,8 +94,8 @@ printing each element.
 
 The worst case approximation is: O(n^2) + O(n^2) + O(1) + O(nlogn)  
 A simplification is: O(2n^2 + 1 + nlogn) 
-Which at the end is O(n^2 + nlogn)
+Which at the end is O(n^2). O(n^2) has a higher impact on the performance than O(nlogn)
 
-Complexity = O(n^2 + nlogn)
+Complexity = O(n^2)
 
 Also, you can find a detailed explanation of what the script is doing on the code.

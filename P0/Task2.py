@@ -27,29 +27,41 @@ def get_unique_numbers_with_total_call_time(calls):
     INPUT:
     calls: a list of calls. 
 
-    RETURN: A dictionary with the phone numbers and the total duration on calling and receiveng calls.
+    RETURN: A dictionary with phone numbers and the total duration on calling and receiveng calls.
     """
 
     # Creating an empty dictionary that will hold the information of every number and the time that 
     # have spent making calls and receiving calls.   - O(1)
     calls_data = dict()
 
-    # iterating over the list of calls.  - O(n)
+    # iterating over the list of calls.  - O(2n^2)
     # this has a complexity of O(n), because it is iterating over the whole list.
     for call in calls:
+        # checks if the number on the callers record already exists in the dictionary.  - O(n)
         if call[0] in calls_data:
+            # if the number exists in the dictionary, then the time of the call is added.  - O(1)
             calls_data[call[0]] = calls_data[call[0]] + int(call[3])
+        # if the number doesn't exists in the dictionary, the new element is created.  - O(1)
         else:
+            # the new element is created with the time of the call.  - O(1)
             calls_data[call[0]] = int(call[3])
 
+        # this another if. Checks if the number on the receivers record already exists in the dictionary.  - O(n)
         if call[1] in calls_data:
+            # checks if the receiver's number is different from the caller's number.   - O(1)
             if call[1] != call[0]:
+                # if true, then the time of the call is added.   - O(1)
                 calls_data[call[1]] = calls_data[call[1]] + int(call[3])
+            # This is virtually impossible that someone calls itself, so this time is not counted as valid.   - O(1) 
             else:
+                # continue with the loop   - O(1)
                 continue
+        # if the receiver's number doesn't exists in the dictionary, the new element is created.  - O(1)
         else:
+            # the new element is created with the time of the call.  - O(1)
             calls_data[call[1]] = int(call[3])
-       
+    
+    # returning the calls dictionary.  - O(1)
     return calls_data
 
 def get_number_with_highest_time(calls_dictionary):
@@ -81,7 +93,7 @@ def get_number_with_highest_time(calls_dictionary):
 
 def main():
     
-    # creating a dictionary of unique numbers and adding the total time that they have spend on the phone  - O(n)
+    # creating a dictionary of unique numbers and adding the total time that they have spend on the phone  - O(2n^2)
     calls_dict = get_unique_numbers_with_total_call_time(calls)
 
     # getting the number with the highest call time by iterating over the list and finding the longest duration  - O(n)

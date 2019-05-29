@@ -98,8 +98,10 @@ def get_numbers_without_messages(calls, texts):
             # increasing the second index by 1 - O(1)
             text_index += 1
         
-        # increasing the index by 1 - O(1)
+        # increasing the index by 1  - O(1)
         calls_index += 1
+        # reseting the text_index to 0  - O(1)
+        text_index = 0
 
     # returning the list of numbers - O(1)
     return calls

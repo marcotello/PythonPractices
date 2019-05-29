@@ -148,7 +148,7 @@ def print_lex_ordered_numbers(numbers):
 
 def get_numbers_called_by_same_area_code(area_code, calls):
     """
-    This function iterates a list of calls and fill a set with the numbers that match the area codes.
+    This function iterates a list of calls and fill a list with the numbers that match the area codes.
 
     INPUT: 
     area_code: the area code that filters the list. 
@@ -156,8 +156,8 @@ def get_numbers_called_by_same_area_code(area_code, calls):
 
     RETURN: the len of the list of numbers that called other numbers with the same area code.
     """
-    # creating a set to store unique numbers  - O(1)
-    called_numbers = set()
+    # creating a list to store unique numbers  - O(1)
+    called_numbers = list()
     # starting the index with 0  - O(1)
     index = 0
     # iterating over the calls  - O(n)
@@ -165,7 +165,7 @@ def get_numbers_called_by_same_area_code(area_code, calls):
         # compare if the caller number starts with the area code - O(1)
         if calls[index][0].startswith(area_code) and calls[index][1].startswith(area_code):
             # adding the caller number to the list  - O(1)
-            called_numbers.add(calls[index][0])
+            called_numbers.append(calls[index][0])
         # incrementing the index by 1  - O(1)
         index += 1
     
@@ -220,7 +220,10 @@ def main():
 if __name__ == "__main__":
     main()
 
-"""
+
+
+
+'''
 # UNIT TESTING
 # get_numbers_called_by_area_code test
 # four numbers with one caller from Bangalore
@@ -249,26 +252,30 @@ print("test for get_numbers_called_by_area_code passed")
 
 # print_lex_ordered_numbers test
 # test with eigth numbers on the list
-order_test_list1 = ["(080)47459867", "98440 65896", "90087 42537", "(080)35121497", 
-                    "(044)30727085", "92414get_numbers_called_by_area_code 22596", "97447 92655", "(022)39006198"]
+order_test_list1 = ["(080)set47459867", "98440 65896", "90087 42537", "(080)35121497", 
+                    "(044)set30727085", "92414get_numbers_called_by_area_code 22596", "97447 92655", "(022)39006198"]
 print_lex_ordered_numbers(order_test_list1)
-print("test for print_lex_ordered_numbers passed")
+print("test for print_lex_setordered_numbers passed")
 
-# get_numbers_called_by_same_area_code test
+# get_numbers_called_by_sasetme_area_code test
 # test with eigth numbers on the list two callers from Bangalore and one receiver from Bancalore
 bangalore_calls_test_list1 = [["(080)47459867", "98440 65896"], ["90087 42537", "(0471)6537077"], 
                     ["(044)30727085", "92414 22596"], ["(080)23802940", "(080)35121497"],
                     ["78130 00821", "98453 94494"], ["98453 46196", "90352 50054"]]
-#assert(get_numbers_called_by_same_area_code("(080)", "(080)", bangalore_calls_test_list1) == 1)
-# test with eigth numbers on the list one caller from Bangalore and two receivers from Bancalore
-bangalore_calls_test_list2 = [["98440 65896", "(080)47459867"], ["90087 42537", "(0471)6537077"], 
+assert(get_numbers_called_by_same_area_code("(080)", bangalore_calls_test_list1) == 1)
+# test with eigth numbers on the list two callers from Bangalore and two receivers from Bangalore
+bangalore_calls_test_list2 = [["(080)64765396", "(080)47459867"], ["90087 42537", "(0471)6537077"], 
                     ["(044)30727085", "92414 22596"], ["(080)23802940", "(080)35121497"],
                     ["78130 00821", "98453 94494"], ["98453 46196", "90352 50054"]]
-assert(get_numbers_called_by_same_area_code("(080)", "(080)", bangalore_calls_test_list1) == 1)
+assert(get_numbers_called_by_same_area_code("(080)", bangalore_calls_test_list2) == 2)
 # four numbers with none caller from Bangalore
 bangalore_calls_test_list3 = [["98440 65896", "(080)47459867"], ["90087 42537", "(080)35121497"], 
                     ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
-assert(get_numbers_called_by_same_area_code("(080)", "(080)", bangalore_calls_test_list3) == 0)
+assert(get_numbers_called_by_same_area_code("(080)", bangalore_calls_test_list3) == 0)
+# four numbers with none caller from Bangalore 
+bangalore_calls_test_list3 = [["98440 65896", "(080)47459867"], ["90087 42537", "(080)35121497"], 
+                    ["(044)30727085", "92414 22596"], ["97447 92655", "(022)39006198"]]
+assert(get_numbers_called_by_same_area_code("(080)", bangalore_calls_test_list3) == 0)
 print("test for get_numbers_called_by_same_area_code passed")
 
 # test filter_area_codes
@@ -277,7 +284,7 @@ assert(filter_area_codes("(044)30727085") == "(044)")
 # test with a celphone
 assert(filter_area_codes("98440 65896") == "9844")
 # test with a telemarketing number
-assert(filter_area_codes("1409994233") == None)
+assert(filter_area_codes("1409994233") == "Invalid phone number")
 print("test for filter_area_codes passed")
 
 # test get_percentage_from_fixed_lines
@@ -286,4 +293,4 @@ assert(get_percentage_from_fixed_lines(10, 2) == 20)
 assert(get_percentage_from_fixed_lines(10, 3) == 30)
 assert(get_percentage_from_fixed_lines(10, 0) == 0)
 print("test for get_percentage_from_fixed_lines passed")
-"""
+'''
