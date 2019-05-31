@@ -75,7 +75,7 @@ class LinkedList:
         current =  self.head
         if current.next:
             self.head = current.next
-            return current
+            return current.value
         else:
             self.head = None
             return self.head
@@ -94,7 +94,7 @@ class LinkedList:
     def insert(self, value, pos):
         """ Insert value at pos position in the list. If pos is larger than the
             length of the list, append to the end of the list. """
-        if pos > self.size:
+        if pos > self.size():
             self.append(value)
         else:
             if self.head:
