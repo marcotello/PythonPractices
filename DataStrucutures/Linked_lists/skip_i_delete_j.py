@@ -16,41 +16,76 @@ def skip_i_delete_j(head, i, j):
 
     current = head
     counter_skip = 1
-    counter_delete = j + 1
+    counter_delete = j 
+
+    new_head = None
+    new_current = None
+    skip = True
 
     if i > 0:
-        skip = True
+        new_head = Node(head.data)
+        new_current = new_head
+        current = current.next
     else:
         skip = False
-    
 
-    while current.next:
+
+    while current:
         if skip:
-            current = current.next
-
-            if counter_skip < i-1:
+            if counter_skip < i:
+                new_current.next = Node(current.data)
+                new_current = new_current.next
                 counter_skip += 1
-            else:
-                skip = False
-                counter_skip += 1
-                counter_delete = 1
+                
+                if current.next:
+                    current = current.next
+                
+                if counter_skip == i:
+                    counter_skip += 1
+                    counter_delete = 0
+                    skip = False
         else:
-            if current.next.next:
-                current.next = current.next.next
+            if counter_delete < j:
                 current = current.next
-            else:
-                current.next = None
+                counter_delete += 1
+                
+                if counter_delete == j:
+                    counter_skip = 0
+                    counter_delete += 1
+                    skip = True
             
-            if counter_delete < j-1:
-                counter_delete += 1
-            else:
-                counter_delete += 1
-                skip = True
-                counter_skip = 1
 
-    return head
+    return new_head
         
-
+'''
+# Solution
+def skip_i_delete_j(head, i, j):
+    if i == 0:
+        return None
+    
+    if head is None or j < 0 or i < 0:
+        return head
+    
+    current = head
+    previous = None
+    while current:
+        # skip (i - 1) nodes
+        for _ in range(i - 1):
+            if current is None:
+                return head
+            current = current.next
+        previous = current
+        current = current.next
+        
+        # delete next j nodes
+        for _ in range(j):
+            if current is None:
+                break
+            next_node = current.next
+            current = next_node
+        previous.next = current
+    return head
+'''
 
 # helper functions for testing purpose
 def create_linked_list(arr):
@@ -88,6 +123,14 @@ def test_function(test_case):
         print("Pass")
     except Exception as e:
         print("Fail")
+
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+i = 2
+j = 3
+head = create_linked_list(arr)
+solution = [1, 2, 6, 7, 11, 12]
+test_case = [head, i, j, solution]
+test_function(test_case)
 
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 i = 2
