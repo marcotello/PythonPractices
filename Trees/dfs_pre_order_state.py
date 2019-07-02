@@ -2,6 +2,8 @@
 class Stack():
     def __init__(self):
         self.list = list()
+        self.visited_l = False
+        self.visited_r = False
         
     def push(self,value):
         self.list.append(value)
@@ -34,8 +36,6 @@ class Node(object):
         self.value = value
         self.left = None
         self.right = None
-        self.visited_l = False
-        self.visited_r = False
         
     def set_value(self,value):
         self.value = value
@@ -60,18 +60,6 @@ class Node(object):
     
     def has_right_child(self):
         return self.right != None
-    
-    def visited_left(self, value):
-        self.visited_l = value
-    
-    def visited_right(self, value):
-        self.visited_r = value
-    
-    def get_visited_left(self):
-        return self.visited_l
-    
-    def get_visited_right(self):
-        return self.visited_r
     
     # define __repr_ to decide what a print statement displays for a Node object
     def __repr__(self):

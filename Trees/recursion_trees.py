@@ -34,8 +34,6 @@ class Node(object):
         self.value = value
         self.left = None
         self.right = None
-        self.visited_l = False
-        self.visited_r = False
         
     def set_value(self,value):
         self.value = value
@@ -61,17 +59,6 @@ class Node(object):
     def has_right_child(self):
         return self.right != None
     
-    def visited_left(self, value):
-        self.visited_l = value
-    
-    def visited_right(self, value):
-        self.visited_r = value
-    
-    def get_visited_left(self):
-        return self.visited_l
-    
-    def get_visited_right(self):
-        return self.visited_r
     
     # define __repr_ to decide what a print statement displays for a Node object
     def __repr__(self):
@@ -80,7 +67,37 @@ class Node(object):
     def __str__(self):
         return f"Node({self.get_value()})"
 
-
-
 def pre_order(tree):
-    pass
+    
+    visit_order = list()
+    root = tree.get_root()
+
+    def traverse(node):
+        if node:
+            visit_order.append(node.get_value())
+            
+            traverse(node.get_left_child())
+
+            traverse(node.get_right_child())
+    
+    traverse(root)
+
+    return visit_order
+
+
+class Tree():
+    def __init__(self, value=None):
+        self.root = Node(value)
+        
+    def get_root(self):
+        return self.root
+
+# create a tree and add some nodes
+tree = Tree("apple")
+tree.get_root().set_left_child(Node("banana"))
+tree.get_root().set_right_child(Node("cherry"))
+tree.get_root().get_left_child().set_left_child(Node("dates"))
+
+visit_order = pre_order(tree)
+
+print(visit_order)
